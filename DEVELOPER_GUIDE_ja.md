@@ -1,6 +1,6 @@
 # yoronchizu2024 実行ガイド
 
-このガイドでは、yoronchizu2024プロジェクトを実行するための手順を説明します。
+このガイドでは、yoronchizu2024プロジェクトを実行するための手順を説明します。(これはまだDevinが生成したばかりのものです)
 
 ## 前提条件
 
@@ -20,7 +20,7 @@ cd yoronchizu2024
 
 ### 2. Polisサブモジュールの初期化
 
-通常の`git submodule update --init --recursive`コマンドでは初期化できない場合があります。以下のコマンドを実行してください：
+通常の`git submodule update --init --recursive` コマンドでは初期化できない場合、以下のコマンドを実行してください：
 
 ```bash
 git submodule add https://github.com/compdemocracy/polis.git polis
@@ -92,17 +92,13 @@ const PASSWORD = "あなたのパスワード";
 const URL = "http://localhost:3000/polis/tmp";
 ```
 
-3. テストスクリプトの実行
-
-```bash
-npx playwright test
-```
+これはテストをするためのものではなく、政党の意見をブラウサ操作自動化によって実際に投票することで初期データを生成しています。
 
 ## 注意点
 
 - 実際の運用では、セキュリティを考慮して適切な認証情報を設定してください
 - APIプロキシの設定は`src/pages/api/polis/handler.ts`で行います
-- キャッシュモードとリアルタイムモードの切り替えは`src/components/pages/polis/PolisPage.tsx`で設定できます
+- キャッシュモードとリアルタイムモードの切り替えは`src/components/pages/polis/PolisPage.tsx`で設定できます。通常サービス提供時にユーザに見えているのはキャッシュされた分析データです。
 
 ## トラブルシューティング
 
