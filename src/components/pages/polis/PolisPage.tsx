@@ -26,7 +26,6 @@ import { NavigationDrawer } from "../../commons/NavigationDrawer";
 import { Consensus } from "./Consensus";
 import { TopicSelect } from "./TopicSelect";
 import { LinksToOtherService } from "./LinksToOtherService";
-import { exportSVG } from "./exportSVG";
 
 function shuffleArray<T>(array: T[]): T[] {
   console.log("shuffleArray");
@@ -141,15 +140,7 @@ export const PolisPage: NextPage<PolisProps> = ({
 
   useEffect(() => {
     window.polis ||= {};
-    window.polis.exportSVG = () => {
-      exportSVG({
-        title: data?.title ?? "",
-        conversation_name: conversation_name,
-        date: "2021-10-18",
-        n: pca?.n,
-      });
-    };
-  }, [data, conversation_name, pca]);
+  }, []);
 
   if (!data) {
     console.log("no data, return loading");
