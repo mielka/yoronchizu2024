@@ -1,20 +1,31 @@
-# YoronChizu 2024 Open Data
+# YoronChizu 2024 Open Source Project
 
 Other languages
 - [日本語 README](README_ja.md)
 
+## About This Repository
+This repository contains the open-source code for the YoronChizu (Public Opinion Map) component of JAPAN CHOICE's 2024 House of Representatives election service. The code is released under the GNU Affero General Public License (AGPL).
 
+## What is Mielka?
+Mielka is a Japanese nonprofit organization founded in 2016. Led primarily by young people, it aims to enhance democracy in Japan by visualizing politics and making political information more accessible. The organization focuses on developing innovative tools that help citizens better understand and engage with the democratic process.
 
-## What is the YoronChizu(Public Opinion Map)?
-The YoronChizu(Public Opinion Map) is a service released on November 18, 2024, by Mielka, a Japanese nonprofit organization. Founded in 2016, Mielka aims to enhance democracy in Japan by visualizing politics, primarily led by young people. Since 2017, it has operated JAPAN CHOICE, one of Japan's largest election information platforms, which served 1.6 million users during the 2021 House of Representatives election.
+## What is JAPAN CHOICE?
+JAPAN CHOICE is one of Japan's largest election information platforms, operated by Mielka since 2017. It provides comprehensive information about candidates, political parties, and policy issues during elections. During the 2021 House of Representatives election, JAPAN CHOICE served 1.6 million users, demonstrating its significant role in Japan's political landscape.
 
-The Public Opinion Map launched as an experimental feature of JAPAN CHOICE, allows users to anonymously vote on specific issues extracted from party manifestos during the 2024 House of Representatives election period. The voting data was used to visualize opinion distributions.
+## What is the YoronChizu (Public Opinion Map)?
+The YoronChizu (Public Opinion Map) is a service released on November 18, 2024, by Mielka. It was launched as an experimental feature of JAPAN CHOICE during the 2024 House of Representatives election. The service allows users to anonymously vote on specific issues extracted from party manifestos, and then visualizes the distribution of public opinions using advanced data analysis techniques.
 
-Over about two weeks, 4,403 unique users participated. This repository provides open access to that voting data.
+This repository is an open-source version of the YoronChizu component, extracted from the full JAPAN CHOICE election service to enable wider community use and development.
+
+Over about two weeks during the election period, 4,403 unique users participated in the YoronChizu. This repository provides both the source code and open access to that voting data.
 
 ![](/images/tiled.png)
 
-The CSV files and images in this repository are licensed under CC BY 4.0. For usage instructions, please refer to [README.ipynb](README.ipynb).
+## License Information
+- **Source Code**: GNU Affero General Public License (AGPL)
+- **CSV files and images**: CC BY 4.0
+
+For usage instructions of the data, please refer to [README.ipynb](README.ipynb).
 
 Although new votes are no longer being recorded, the Public Opinion Map remains accessible for exploration: [Public Opinion Map (Beta) - JAPAN CHOICE](https://japanchoice.jp/polis)
 
