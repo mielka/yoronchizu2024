@@ -29,9 +29,10 @@ Over about two weeks during the election period, 4,403 unique users participated
 - **Source Code**: GNU Affero General Public License (AGPL)
 - **CSV files and images**: CC BY 4.0
 
-For usage instructions of the data, please refer to [README.ipynb](README.ipynb).
+The voting data collected from users is available as open data in the [yoronchizu2024-data](https://github.com/mielka/yoronchizu2024-data) repository.
+For usage instructions of the data, please refer to [README.ipynb](https://github.com/mielka/yoronchizu2024-data/README.ipynb).
 
-Although new votes are no longer being recorded, the Public Opinion Map remains accessible for exploration: [Public Opinion Map (Beta) - JAPAN CHOICE](https://japanchoice.jp/polis)
+As of May 2025, although new votes are no longer being recorded, the Public Opinion Map remains accessible for exploration: [Public Opinion Map (Beta) - JAPAN CHOICE](https://japanchoice.jp/polis)
 
 # Technical Details
 
