@@ -1,0 +1,146 @@
+# Before running docker compose up for the first time,
+# first copy the env.example file to .env and fill in the values.
+# `cp env.example .env`
+# (edit values as needed)
+#
+# Then, build and run with:
+# `docker compose build`
+# `docker compose up`
+#
+# Subsequently you should only need to run:
+# `docker compose up`
+#
+# Force a full re-build with no cache from previous builds:
+# `docker compose build --no-cache`
+# `docker compose up`
+#
+# If you only changed the .env file, you can do a quick rebuild:
+# `docker compose up --force-recreate`
+#
+# To stop, press CTRL+C (if not running in --detach mode), or run:
+# `docker compose down`
+
+services:
+  server:
+    env_file:
+      - ${SERVER_ENV_FILE:-.env}
+    image: docker.io/compdem/polis-server:${TAG:-dev}
+    build:
+      context: ./polis/server
+      dockerfile: Dockerfile
+      target: dev
+      args:
+        NODE_ENV: development
+      labels:
+        polis_tag: ${TAG:-dev}
+    depends_on:
+      - "postgres"
+    networks:
+      - "polis-net"
+    # Scale the server container to a given number of instances.
+    scale: 1
+    volumes:
+      # Persist logs to a volume, so they can be accessed after the container is stopped.
+      - server-logs:/app/logs
+      - ./polis/server:/app
+      - /app/node_modules
+    ports:
+      - "${API_SERVER_PORT:-5000}:${API_SERVER_PORT:-5000}"
+      - "9229:9229"
+
+  math:
+    image: docker.io/compdem/polis-math:${TAG:-dev}
+    depends_on:
+      - "postgres"
+    build:
+      context: ./polis/math
+      labels:
+        polis_tag: ${TAG:-dev}
+    environment:
+      - DATABASE_URL=${DATABASE_URL:?error}
+      - MATH_ENV=${MATH_ENV:-prod}
+      - WEBSERVER_USERNAME=${WEBSERVER_USERNAME:?error}
+      - WEBSERVER_PASS=${WEBSERVER_PASS:?error}
+      - CHOKIDAR_USEPOLLING="true"
+    ports:
+      # nrepl port
+      - "18975:18975"
+    volumes:
+      - ./polis/math:/app
+    networks:
+      - "polis-net"
+
+  postgres:
+    image: docker.io/compdem/polis-postgres:${TAG:-dev}
+    restart: always
+    build:
+      context: ./polis/server
+      dockerfile: Dockerfile-db
+      labels:
+        polis_tag: ${TAG:-dev}
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:?error}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?error}
+      - POSTGRES_USER=${POSTGRES_USER:?error}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    networks:
+      - "polis-net"
+    volumes:
+      - "backups:/backups"
+      - "postgres:/var/lib/postgresql/data"
+
+  file-server:
+    image: docker.io/compdem/polis-file-server:${TAG:-dev}
+    build:
+      context: ./polis
+      dockerfile: file-server/Dockerfile
+      labels:
+        polis_tag: ${TAG:-dev}
+      args:
+        EMBED_SERVICE_HOSTNAME: ${EMBED_SERVICE_HOSTNAME}
+        ENABLE_TWITTER_WIDGETS: ${ENABLE_TWITTER_WIDGETS:-false}
+        FB_APP_ID: ${FB_APP_ID}
+        GA_TRACKING_ID: ${GA_TRACKING_ID}
+        GIT_HASH: "${GIT_HASH:-placeholder}"
+        NODE_ENV: development
+        SERVICE_URL: ${SERVICE_URL}
+    environment:
+      - PORT=${STATIC_FILES_PORT:-8080}
+    ports:
+      - ${STATIC_FILES_PORT:-8080}:${STATIC_FILES_PORT:-8080}
+    networks:
+      - "polis-net"
+  maildev:
+    image: docker.io/maildev/maildev:1.1.1
+    labels:
+      polis_tag: ${TAG}
+    networks:
+      - polis-net
+    ports:
+      # User interface
+      - "1080:1080"
+      # SMTP port
+      - "1025:1025"
+  dynamodb:
+    image: amazon/dynamodb-local
+    command: -jar DynamoDBLocal.jar -sharedDb -dbPath . -optimizeDbBeforeStartup
+    volumes:
+      - dynamodb:/home/dynamodblocal
+    ports:
+      - 8001:8000
+
+networks:
+  polis-net:
+
+volumes:
+  backups:
+    labels:
+      polis_tag: ${TAG:-dev}
+  postgres:
+    labels:
+      polis_tag: ${TAG:-dev}
+  server-logs:
+    labels:
+      polis_tag: ${TAG:-dev}
+  dynamodb:
