@@ -24,9 +24,9 @@
     "@aws-sdk/client-sts": "^3.666.0",
     "@aws-sdk/s3-request-presigner": "^3.670.0",
     "@aws-sdk/util-dynamodb": "^3.670.0",
-    "@chakra-ui/icons": "^2.1.1",
-    "@chakra-ui/next-js": "^2.2.0",
-    "@chakra-ui/react": "^2.8.2",
+    "@chakra-ui/icons": "^2.2.4",
+    "@chakra-ui/next-js": "^2.4.2",
+    "@chakra-ui/react": "^3.17.0",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@next/third-parties": "^14.2.15",
@@ -47,7 +47,7 @@
     "use-debounce": "^10.0.3"
   },
   "devDependencies": {
-    "@chakra-ui/storybook-addon": "^5.1.0",
+    "@chakra-ui/storybook-addon": "^5.2.5",
     "@storybook/addon-actions": "^7.6.17",
     "@storybook/addon-essentials": "^7.6.17",
     "@storybook/addon-interactions": "^7.6.17",
